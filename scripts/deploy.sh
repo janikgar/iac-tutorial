@@ -6,7 +6,7 @@ echo " ----- clone app repo ----- "
 git clone https://github.com/Artemmkin/raddit.git
 
 echo " ----- install dependent gems ----- "
-cd .raddit
+cd ./raddit
 sudo bundle install
 
 echo " ----- start the app ----- "
