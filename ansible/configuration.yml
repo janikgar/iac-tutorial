@@ -1,0 +1,42 @@
+---
+- name: Add Apt Key for Mongo
+  apt_key:
+    key_server: keyserver.ubuntu.com
+    id: EA312927
+    keyring: /etc/apt/sources.list.d/mongodb-org-3.2.list
+    state: present
+
+- name: Install Ruby & Mongo
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - ruby-full
+      - build-essential
+      - mongodb-org
+
+- name: Install Bundler
+  gem:
+    name: bundler
+    state: present
+    build_flags: "{{ flags }}"
+  vars:
+    flags:
+      - no-rdoc
+      - no-ri
+
+- name: Get Raddit service
+  file:
+    src: https://gist.githubusercontent.com/Artemmkin/ce82397cfc69d912df9cd648a8d69bec/raw/7193a36c9661c6b90e7e482d256865f085a853f2/raddit.service
+    dest: /etc/systemd/system/raddit.service
+
+- name: Start MongoDB & Raddit services
+  systemd:
+    name: "{{ services }}"
+    enabled: yes
+    state: started
+  vars:
+    services:
+      - mongod
+      - raddit
