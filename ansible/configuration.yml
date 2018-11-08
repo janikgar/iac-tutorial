@@ -12,9 +12,13 @@
   tasks:
     - name: Add Apt Key for Mongo
       apt_key:
-        key_server: keyserver.ubuntu.com
+        keyserver: keyserver.ubuntu.com
         id: EA312927
-        keyring: /etc/apt/sources.list.d/mongodb-org-3.2.list
+        state: present
+
+    - name: Add MongoDB repo
+      apt_repository:
+        repo: deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
         state: present
 
     - name: Install Ruby & Mongo
@@ -34,7 +38,7 @@
         user_install: no
 
     - name: Get Raddit service
-      file:
+      fetch:
         src: https://gist.githubusercontent.com/Artemmkin/ce82397cfc69d912df9cd648a8d69bec/raw/7193a36c9661c6b90e7e482d256865f085a853f2/raddit.service
         dest: /etc/systemd/system/raddit.service
 

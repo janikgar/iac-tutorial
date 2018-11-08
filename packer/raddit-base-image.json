@@ -3,7 +3,7 @@
 		{
 			"type": "googlecompute",
 			"project_id": "iac-tutorial-221820",
-			"zone":"us-east4-c",
+			"zone":"us-east1-b",
 			"machine_type": "g1-small",
 			"source_image_family": "ubuntu-1604-lts",
 			"image_name": "raddit-base-{{isotime \"20060102-150405\"}}",
